@@ -50,7 +50,7 @@ with st.sidebar:
                     df_global.to_csv(PROCESSED_DIR / "global_aggregates.csv", index=False)
                 get_data.clear()
                 st.success("Uploaded data saved. The app will use it now.")
-                st.experimental_rerun()
+                st.rerun()
         except Exception as e:
             st.error(f"Could not read or process uploaded CSV: {e}")
 
