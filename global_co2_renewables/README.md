@@ -6,14 +6,24 @@ An end‑to‑end data storytelling and visualization project exploring how CO�
 - Open the Streamlit app: [Global Energy Trends](https://global-energy-trends-iccj6f96jeveueo7hkmpmf.streamlit.app/)
 
 ## What the app provides
-- Global overview
-  - Interactive world map showing CO₂ per capita by year (Plotly choropleth)
-  - Global time‑series comparing CO₂ per capita and renewable energy share
-- Country/Continent comparison
-  - Toggle between country and continent modes
-  - Time‑series for CO₂ per capita, renewable share, and GDP YoY growth
-- Insights & Story
-  - Headline metrics and a short, contextual narrative (e.g., Paris Agreement 2015)
+- Turns your country‑year dataset into an interactive story about climate and energy
+- Validates your uploaded data and computes population‑weighted global aggregates
+- Calculates and visualizes key metrics:
+  - CO₂ per capita (tonnes/person)
+  - Renewable energy share and its YoY growth (%)
+  - GDP YoY growth (%)
+- Visual layers designed to answer different questions:
+  - Global Overview: world map (choropleth) + global time‑series
+  - Country/Continent Comparison: side‑by‑side time‑series for fair comparisons
+  - Insights & Story: headline metrics and notable milestones (e.g., Paris Agreement 2015)
+- Built‑in EDA helpers:
+  - Top/Bottom countries by CO₂ per capita (for a selected year)
+  - Correlation matrix across core metrics
+- Output options:
+  - Optional export of figures as HTML (always) and PNG (when static export is available)
+- Offline‑first and deploy‑ready:
+  - Works without internet data fetching
+  - Minimal dependencies; Streamlit Cloud‑friendly (Python 3.11)
 
 ## Download my dataset
 I provide a ready‑to‑use CSV so you can try the dashboard right away:
