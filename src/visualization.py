@@ -5,11 +5,17 @@ from typing import Optional
 
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
 
 
 def choropleth_co2_per_capita(df: pd.DataFrame, year: int) -> px.choropleth:
     d = df[(df["year"] == year) & (~df["is_aggregate"])].copy()
-    # Use iso_code when available; Plotly expects ISO-3 codes
+    # Drop rows without ISO-3 codes or values
+    d = d.dropna(subset=["iso_code", "co2_per_capita"]).copy()
+    if d.empty:
+        fig = go.Figure()
+        fig.update_layout(title_text=f"No map data available for year {year}")
+        return fig
     fig = px.choropleth(
         d,
         locations="iso_code",
@@ -19,7 +25,7 @@ def choropleth_co2_per_capita(df: pd.DataFrame, year: int) -> px.choropleth:
         labels={"co2_per_capita": "CO₂ per capita (t/person)"},
         title=f"CO₂ per capita by country — {year}",
     )
-    fig.update_geos(showcountries=True, showcountriesframe=False)
+    fig.update_geos(showcountries=True, showcoastlines=False, showland=True, fitbounds="locations")
     fig.update_layout(margin=dict(l=0, r=0, t=50, b=0))
     return fig
 
