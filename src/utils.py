@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Tuple, List
 
 import pandas as pd
 
@@ -27,6 +27,29 @@ class Constants:
 def ensure_directories() -> None:
     for p in [DATA_DIR, RAW_DIR, PROCESSED_DIR, ASSETS_DIR, SCREENSHOTS_DIR]:
         p.mkdir(parents=True, exist_ok=True)
+
+
+def required_merged_columns() -> List[str]:
+    return [
+        "country_standard",
+        "iso_code",
+        "year",
+        "co2",
+        "co2_per_capita",
+        "gdp",
+        "population",
+        "renewables_share_energy",
+        "renewables_share_yoy",
+        "gdp_yoy",
+        "continent",
+        "is_aggregate",
+    ]
+
+
+def validate_merged_schema(df: pd.DataFrame) -> Tuple[bool, List[str]]:
+    req = set(required_merged_columns())
+    missing = [c for c in req if c not in df.columns]
+    return (len(missing) == 0, missing)
 
 
 def standardize_countries(df: pd.DataFrame, country_col: str = "country") -> pd.DataFrame:
