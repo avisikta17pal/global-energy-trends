@@ -45,16 +45,12 @@ def standardize_countries(df: pd.DataFrame, country_col: str = "country") -> pd.
         import country_converter as coco
 
         cc = coco.CountryConverter()
-        # Create standardized names based on provided country names
         name_short = cc.convert(names=df[country_col].tolist(), to="name_short")
-        # Only fill iso codes where missing
         iso3_conv = cc.convert(names=df[country_col].tolist(), to="ISO3")
         df["country_standard"] = name_short
-        # Fill iso_code only when missing and converter result is valid
         mask_missing_iso = df["iso_code"].isna()
         iso3_series = pd.Series(iso3_conv, index=df.index)
         df.loc[mask_missing_iso & (~iso3_series.isin(["not found", None])), "iso_code"] = iso3_series
-        # Fallback to original country if converter failed
         df["country_standard"].fillna(df[country_col], inplace=True)
         return df
     except Exception:
@@ -81,13 +77,27 @@ def add_continent(df: pd.DataFrame, iso_col: str = "iso_code") -> pd.DataFrame:
 
 
 def save_df(df: pd.DataFrame, name: str) -> Path:
-    path = PROCESSED_DIR / name
-    df.to_parquet(path, index=False)
-    return path
+    PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
+    path_parquet = PROCESSED_DIR / name
+    path_csv = PROCESSED_DIR / (Path(name).stem + ".csv")
+    try:
+        # Try parquet first if engine available
+        df.to_parquet(path_parquet, index=False)
+        return path_parquet
+    except Exception:
+        df.to_csv(path_csv, index=False)
+        return path_csv
 
 
 def load_df(name: str) -> Optional[pd.DataFrame]:
-    path = PROCESSED_DIR / name
-    if path.exists():
-        return pd.read_parquet(path)
+    path_parquet = PROCESSED_DIR / name
+    path_csv = PROCESSED_DIR / (Path(name).stem + ".csv")
+    if path_parquet.exists():
+        try:
+            return pd.read_parquet(path_parquet)
+        except Exception:
+            # Fall through to CSV
+            pass
+    if path_csv.exists():
+        return pd.read_csv(path_csv)
     return None

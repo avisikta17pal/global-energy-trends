@@ -86,7 +86,7 @@ streamlit run app.py
 
 The app will:
 - Automatically download raw data into `data/raw/`
-- Process and cache a merged dataset into `data/processed/`
+- Process and cache a merged dataset into `data/processed/` (Parquet if available, else CSV)
 - Launch the dashboard at a local URL
 
 4) Generate example screenshots (optional)
@@ -152,8 +152,8 @@ Programmatically generated examples (you can regenerate via the script):
 
 ## Troubleshooting
 - If maps render blank, ensure `iso_code` is present for countries (auto-handled) and your network allows the OWID downloads.
-- If static image export fails in `generate_screenshots.py`, install Kaleido and PyArrow:
-  - `pip install -U kaleido pyarrow`
+- If static image export fails in `generate_screenshots.py`, install Kaleido:
+  - `pip install -U kaleido`
 
 ## Key Insights (Preview)
 - Post-2000, rapid industrialization in parts of Asia increased global CO₂, while per-capita trends diverged across regions.
