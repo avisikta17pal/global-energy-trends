@@ -26,7 +26,7 @@ This project loads your provided processed datasets, performs exploratory data a
 - Modular, PEP8-compliant Python codebase
 
 ## Expected CSV Inputs
-Place or upload these files (headers required):
+Place or upload these files (headers required). If you plan to publish the repo with your data, include a dataset README at `data/processed/DATASET_README.md` describing source and license.
 - `data/processed/merged.csv` (or upload via sidebar)
   - columns: `country_standard`, `iso_code`, `year`, `co2`, `co2_per_capita`, `gdp`, `population`, `renewables_share_energy`, `renewables_share_yoy`, `gdp_yoy`, `continent`, `is_aggregate`
 - `data/processed/global_aggregates.csv` (optional; if missing, app computes from merged)
