@@ -12,7 +12,13 @@ def _safe_write_image(fig, out_path: Path) -> None:
     try:
         fig.write_image(str(out_path))
     except Exception:
-        # Skip if static export not available (kaleido not installed)
+        pass
+
+
+def _safe_write_html(fig, out_path: Path) -> None:
+    try:
+        fig.write_html(str(out_path), include_plotlyjs="cdn", full_html=True)
+    except Exception:
         pass
 
 
@@ -24,21 +30,25 @@ def main():
     if merged is None or global_agg is None:
         raise SystemExit("Processed data not found. Run the Streamlit app once to generate data.")
 
-    # Global map for latest year
     latest_year = int(merged["year"].max())
+
+    # Global map
     fig_map = choropleth_co2_per_capita(merged, latest_year)
     _safe_write_image(fig_map, SCREENSHOTS_DIR / f"global_map_{latest_year}.png")
+    _safe_write_html(fig_map, SCREENSHOTS_DIR / f"global_map_{latest_year}.html")
 
     # Global trend lines
     fig_trends = global_trends(global_agg)
     _safe_write_image(fig_trends, SCREENSHOTS_DIR / "global_trends.png")
+    _safe_write_html(fig_trends, SCREENSHOTS_DIR / "global_trends.html")
 
     # Country example
     example_country = "United States" if "United States" in merged["country_standard"].unique() else merged["country_standard"].dropna().unique()[0]
     charts = country_time_series(merged, example_country)
     _safe_write_image(charts["co2_per_capita"], SCREENSHOTS_DIR / "country_comparison.png")
+    _safe_write_html(charts["co2_per_capita"], SCREENSHOTS_DIR / "country_comparison.html")
 
-    print("Screenshots generated in:", SCREENSHOTS_DIR)
+    print("Visuals saved in:", SCREENSHOTS_DIR)
 
 
 if __name__ == "__main__":
