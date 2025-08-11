@@ -7,5 +7,4 @@ streamlit==1.36.0
 requests==2.32.3
 country_converter==1.2
 scipy==1.13.1
-pyarrow==16.1.0
 kaleido==0.2.1
