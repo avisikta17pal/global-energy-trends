@@ -84,6 +84,8 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
+Note on Python version: use Python 3.11 for fastest, wheel-based installs on Streamlit Cloud.
+
 The app will:
 - Automatically download raw data into `data/raw/`
 - Process and cache a merged dataset into `data/processed/` (Parquet if available, else CSV)
@@ -131,7 +133,7 @@ This creates `data/processed/merged.parquet` and `data/processed/global_aggregat
 ### Streamlit Community Cloud
 - Push this repository to GitHub
 - On Streamlit Cloud, create a new app pointing to `app.py`
-- Set Python version to 3.10+ and provide `requirements.txt`
+- Set Python version to 3.11 (recommended) and provide `requirements.txt`
 - No system packages are required. All maps use Plotly choropleth.
 - No secrets are required
 
