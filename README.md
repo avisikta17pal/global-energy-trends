@@ -11,7 +11,7 @@ This project automatically downloads data from open sources, cleans and combines
 - Summarize key insights and highlight notable events (e.g., Paris Agreement 2015).
 
 ## Features
-- Automated data acquisition from Our World in Data (OWID)
+- Automated data acquisition from Our World in Data (OWID), or upload your own processed CSVs via the sidebar
 - Clean, merge, and enrich datasets with derived metrics:
   - CO₂ per capita
   - Renewable energy YoY growth rate
@@ -87,7 +87,7 @@ streamlit run app.py
 Note on Python version: use Python 3.11 for fastest, wheel-based installs on Streamlit Cloud.
 
 The app will:
-- Automatically download raw data into `data/raw/`
+- Automatically download raw data into `data/raw/` (unless you upload your own processed CSVs)
 - Process and cache a merged dataset into `data/processed/` (Parquet if available, else CSV)
 - Launch the dashboard at a local URL
 
