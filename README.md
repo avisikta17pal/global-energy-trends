@@ -19,7 +19,7 @@ This project automatically downloads data from open sources, cleans and combines
   - Continent classification
 - EDA with summary stats, correlations, and rankings
 - Streamlit dashboard with three pages:
-  - Global Overview: world map of CO₂ per capita by year; global trends of CO₂ per capita and renewable share.
+  - Global Overview: world map of CO₂ per capita by year using Plotly choropleth; global trends of CO₂ per capita and renewable share.
   - Country/Continent Comparison: interactive time-series for emissions intensity, renewable adoption, and GDP growth.
   - Insights & Story: narrative with notable events and contextual interpretation.
 - Programmatically generated example screenshots
@@ -132,6 +132,7 @@ This creates `data/processed/merged.parquet` and `data/processed/global_aggregat
 - Push this repository to GitHub
 - On Streamlit Cloud, create a new app pointing to `app.py`
 - Set Python version to 3.10+ and provide `requirements.txt`
+- No system packages are required. All maps use Plotly choropleth.
 - No secrets are required
 
 ### Hugging Face Spaces
@@ -153,7 +154,6 @@ Programmatically generated examples (you can regenerate via the script):
 - If maps render blank, ensure `iso_code` is present for countries (auto-handled) and your network allows the OWID downloads.
 - If static image export fails in `generate_screenshots.py`, install Kaleido and PyArrow:
   - `pip install -U kaleido pyarrow`
-- For geopandas/proj issues on some systems, install system packages: `gdal`, `geos`, `proj` (varies by OS).
 
 ## Key Insights (Preview)
 - Post-2000, rapid industrialization in parts of Asia increased global CO₂, while per-capita trends diverged across regions.
