@@ -1,13 +1,19 @@
 # 🌍 Global CO₂ Emissions and Renewable Energy Trends (1990–2023)
 
-I built this project to tell a clear, data‑driven story about how CO₂ emissions, renewable energy adoption, and GDP growth have evolved across countries since 1990. It’s a Streamlit app with interactive maps and time‑series charts, backed by a simple, robust data pipeline.
+An end‑to‑end data storytelling and visualization project exploring how CO₂ emissions, renewable energy adoption, and GDP growth have evolved across countries since 1990. The project provides a streamlined Streamlit dashboard, repeatable processing utilities, and minimal dependencies for smooth local runs and cloud deployment.
 
-## What this app does
-- Lets you upload a prepared dataset (CSV), then explores:
-  - CO₂ per capita trends (global and by country/continent)
-  - Renewable energy share and its year‑over‑year change
-  - GDP year‑over‑year growth
-- Shows a global choropleth map, interactive time‑series charts, and a short narrative with key milestones (e.g., Paris Agreement 2015).
+## Live app
+- Open the Streamlit app: [Global Energy Trends](https://global-energy-trends-iccj6f96jeveueo7hkmpmf.streamlit.app/)
+
+## What the app provides
+- Global overview
+  - Interactive world map showing CO₂ per capita by year (Plotly choropleth)
+  - Global time‑series comparing CO₂ per capita and renewable energy share
+- Country/Continent comparison
+  - Toggle between country and continent modes
+  - Time‑series for CO₂ per capita, renewable share, and GDP YoY growth
+- Insights & Story
+  - Headline metrics and a short, contextual narrative (e.g., Paris Agreement 2015)
 
 ## Download my dataset
 I provide a ready‑to‑use CSV so you can try the dashboard right away:
@@ -21,7 +27,14 @@ Your `merged.csv` should include these columns:
 
 Tip: In the app sidebar, I also include a quick template download with just the headers if you’re preparing the file yourself.
 
-## Project structure (high level)
+## Features
+- Upload‑first workflow (no automatic internet fetches)
+- Clean, CSV‑friendly processing and caching (Parquet if available, else CSV)
+- Plotly‑based maps (no geopandas/pyproj required)
+- Modular code: separate processing, EDA, and visualization
+- Minimal requirements for faster and more reliable deployments
+
+## Project structure
 ```
 global_co2_renewables/
 ├─ app.py                  # Streamlit entrypoint
@@ -44,7 +57,7 @@ global_co2_renewables/
 python3 -m venv .venv
 source .venv/bin/activate   # Windows: .venv\Scripts\activate
 ```
-2) Install deps
+2) Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
@@ -52,26 +65,20 @@ pip install -r requirements.txt
 ```bash
 streamlit run app.py
 ```
-4) Upload `merged.csv` via the sidebar and explore. If you prefer, you can also place it at `data/processed/merged.csv` before launching.
+4) Upload `merged.csv` via the sidebar. Alternatively, place it at `data/processed/merged.csv` before launching.
 
-## Notes on data handling
-- The app reads your uploaded CSV and caches processed data locally (Parquet if available, otherwise CSV).
-- If you don’t provide `global_aggregates.csv`, the app computes it from your merged file.
-- I removed heavy geo/system dependencies (geopandas/pyproj). Maps use Plotly choropleth with ISO‑3 codes from your file.
+## Data handling
+- The app loads your uploaded CSV and caches processed outputs locally.
+- If you do not upload `global_aggregates.csv`, the app computes it from your merged file.
+- All mapping uses Plotly choropleth with ISO‑3 codes from your data.
 
 ## Deployment
-- Streamlit Community Cloud: point it to `app.py`, include `requirements.txt`, and use Python 3.11 (I include `runtime.txt`).
-- After deploy, upload `merged.csv` from the sidebar (or include it under `data/processed/` in the repo if you want it loaded automatically).
-
-## Why I built it this way
-I wanted an analysis that is easy to run anywhere (local or Streamlit Cloud) and doesn’t break on system packages. That’s why I:
-- Use Plotly choropleth instead of geopandas/pyproj
-- Keep the pipeline simple and CSV‑friendly
-- Provide a clean UI with three focused pages: Global Overview, Country/Continent Comparison, and Insights & Story
+- Streamlit Community Cloud: point to `app.py`, include `requirements.txt`, and use Python 3.11 (via `runtime.txt`).
+- After deployment, upload `merged.csv` from the sidebar (or include it under `data/processed/` in the repo if you want it loaded automatically).
 
 ## Contributing
-- I welcome suggestions and improvements. Please open an issue or PR.
-- If you publish your own dataset with the repo, add a short note at `data/processed/DATASET_README.md` with source and license.
+- Suggestions and improvements are welcome—feel free to open an issue or PR.
+- If you publish a dataset with the repo, add a short note at `data/processed/DATASET_README.md` with source and license.
 
 ## License
 MIT. See `LICENSE`.
