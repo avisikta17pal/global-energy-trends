@@ -4,6 +4,10 @@ A complete, end-to-end data storytelling and visualization project that explores
 
 This project loads your provided processed datasets, performs exploratory data analysis (EDA), and provides an interactive Streamlit dashboard to tell a compelling data story. You can generate processed data offline (e.g., with Kaggle sources) and upload it to the app.
 
+## Quick dataset download (optional)
+If you include your prepared merged CSV in `assets/data/merged.csv`, GitHub will serve it directly. Link format:
+- Download: `assets/data/merged.csv`
+
 ## Project Goals
 - Analyze long-run trends in CO₂ emissions and renewable energy adoption.
 - Explore the relationship between GDP growth, CO₂ emissions, and renewable adoption.
@@ -52,7 +56,8 @@ global_co2_renewables/
 │  ├─ raw/
 │  └─ processed/
 ├─ assets/
-│  └─ screenshots/
+│  ├─ screenshots/
+│  └─ data/
 ├─ .streamlit/
 │  └─ config.toml
 ├─ requirements.txt
